@@ -1,11 +1,12 @@
 package main
 
 import (
-	"./accountservice/service"
 	"./accountservice/dbclient"
+	"./accountservice/service"
 	"fmt"
 )
 
+//https://segmentfault.com/blog/microgo
 var appName = "accountservice"
 
 func main() {
@@ -17,7 +18,7 @@ func main() {
 
 //creates instance and calls the OpenBoldDb and Seed funcs
 // 启动时初始化一个BoltDb
-func initializeBoldClient()  {
+func initializeBoldClient() {
 	service.DBClient = &dbclient.BoltClient{}
 	service.DBClient.OpenBoltDb()
 	service.DBClient.Seed()
