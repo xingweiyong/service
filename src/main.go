@@ -23,3 +23,5 @@ func initializeBoldClient() {
 	service.DBClient.OpenBoltDb()
 	service.DBClient.Seed()
 }
+
+//https://segmentfault.com/blog/microgo
