@@ -25,5 +25,10 @@ var routes = Routes{
 		//},
 		GetAccount,
 	},
+	Route{
+		"HealCheck",
+		"GET",
+		"/health",
+		HealCheck,
+	},
 }
-

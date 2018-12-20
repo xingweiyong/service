@@ -13,6 +13,7 @@ type IBoltClient interface {
 	OpenBoltDb()
 	QueryAccount(accountId string) (model.Account, error)
 	Seed()
+	Check() bool
 	Close()
 }
 
@@ -72,30 +73,35 @@ func (bc *BoltClient) seedAccounts() {
 	fmt.Printf("Seeded %v fake accounts...\n", total)
 }
 
-func (bc *BoltClient) QueryAccount(accountId string)(model.Account,error)  {
+func (bc *BoltClient) QueryAccount(accountId string) (model.Account, error) {
 	//Allocate an empty Account instance
 	account := model.Account{}
 
 	err := bc.boldDB.View(func(tx *bolt.Tx) error {
 		//Read the bucket from the DB
-		b:=tx.Bucket([]byte("AccountBucket"))
+		b := tx.Bucket([]byte("AccountBucket"))
 
 		//Read the value identified by our accountId
 		accountBytes := b.Get([]byte(accountId))
-		if accountBytes == nil{
-			return fmt.Errorf("No account found for "+accountId)
+		if accountBytes == nil {
+			return fmt.Errorf("No account found for " + accountId)
 		}
 		//Unmarshal the returned bytes into the account struct created at the top of the function
-		json.Unmarshal(accountBytes,&account)
+		json.Unmarshal(accountBytes, &account)
 
 		return nil
 	})
-	if err != nil{
-		return model.Account{},err
+	if err != nil {
+		return model.Account{}, err
 	}
-	return account,nil
+	return account, nil
 }
 
-func (bc *BoltClient) Close()  {
+// 测试是否能够连接上BoltDb
+func (bc *BoltClient) Check() bool {
+	return bc.boldDB != nil
+}
+
+func (bc *BoltClient) Close() {
 	bc.Close()
 }
