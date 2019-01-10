@@ -7,6 +7,7 @@ import (
 )
 
 //https://segmentfault.com/blog/microgo
+//https://segmentfault.com/a/1190000015135650
 var appName = "accountservice"
 
 func main() {
