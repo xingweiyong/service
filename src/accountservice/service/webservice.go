@@ -6,6 +6,7 @@ import (
 )
 
 func StartWebService(port string) {
+	// gorilla 和 net/http 兼容
 	r := NewRouter()
 	http.Handle("/", r)
 
